@@ -1,0 +1,18 @@
+[package]
+name = "entropyhub-py"
+description = "PyO3 bindings for entropyhub-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+publish = false
+
+[lib]
+name = "_core"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.21", features = ["extension-module", "abi3-py38"] }
+numpy = "0.21"
+entropyhub-core = { path = "../entropyhub-core" }

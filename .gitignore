@@ -1,0 +1,9 @@
+/target/
+/crates/*/target/
+__pycache__/
+*.pyc
+*.pyd
+*.dll
+*.so
+*.whl
+.venv/

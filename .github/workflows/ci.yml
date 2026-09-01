@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  rust-test:
+    name: cargo test (chaos verification)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test -p entropyhub-core --release
+
+  python-wheel:
+    name: build + smoke-test wheel (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build wheel
+        uses: PyO3/maturin-action@v1
+        with:
+          working-directory: crates/entropyhub-py
+          command: build
+          args: --release --out dist
+      - name: Install wheel and run demo
+        shell: bash
+        run: |
+          pip install crates/entropyhub-py/dist/*.whl numpy
+          python examples/demo.py
