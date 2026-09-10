@@ -19,6 +19,7 @@
       <a href="#mimari">Mimari</a>
       <a href="#api">API</a>
       <a href="#dogrulama">Doğrulama</a>
+      <a href="#olcumler">Ölçümler</a>
       <button class="language-toggle" type="button" aria-label="Switch to English">EN</button>
       <a class="github-link" href="https://github.com/TeknoAI-T/Teknofest-EntropyHub-Yarisma" target="_blank" rel="noreferrer">GitHub ↗</a>
     </nav>
@@ -141,6 +142,38 @@ test chaos_verification ... <em>ok</em>
 test result: <strong>ok</strong>. 1 passed
 <mark>λ = 0.071…  ✓ chaotic</mark></code></pre></div>
       </div>
+    </section>
+
+    <section id="olcumler" class="section container measurements">
+      <div class="section-heading"><span>05</span><div><p class="eyebrow">GERÇEK ÖLÇÜMLER</p><h2>Grafik, kaynak koddaki test sonuçlarını gösterir.</h2></div></div>
+      <div class="measurement-intro">
+        <p>Bu sayfadaki değerler görsel amaçlı uydurulmuş skorlar değildir. RK4 ve periyodik parametre sonuçları, `entropyhub-core` içindeki Benettin yöntemiyle çalışan Rust testleri ve proje README'sinde açıklanan ölçümlerden alınmıştır.</p>
+        <span class="data-badge">● SOURCE: cargo test -p entropyhub-core --release</span>
+      </div>
+      <div class="measurement-grid">
+        <div class="chart-card">
+          <div class="chart-title"><strong>En büyük Lyapunov üssü (λ)</strong><span>dt = 0.01</span></div>
+          <div class="bar-chart" role="img" aria-label="Lyapunov exponent comparison">
+            <div class="bar-row"><span>Euler</span><div class="bar-track"><i class="bar euler"></i></div><b>~0.000006</b></div>
+            <div class="bar-row"><span>RK4</span><div class="bar-track"><i class="bar rk4"></i></div><b>~0.071</b></div>
+            <div class="bar-row"><span>c = 2.5</span><div class="bar-track"><i class="bar periodic"></i></div><b>~0.00002</b></div>
+          </div>
+          <small class="chart-caption">Pozitif ve yüksek λ, hassas başlangıç koşullarına duyarlılığın ölçülebilir göstergesidir.</small>
+        </div>
+        <div class="data-table-wrap">
+          <table>
+            <caption>Parametre ve doğrulama özeti</caption>
+            <thead><tr><th>Deney</th><th>λ sonucu</th><th>Yorum</th></tr></thead>
+            <tbody>
+              <tr><td>RK4 · c=5.7</td><td class="real-value">~0.071</td><td class="chaotic-label">Kaotik</td></tr>
+              <tr><td>Euler · c=5.7</td><td>~0.000006</td><td class="periodic-label">Kaosu bastırıyor</td></tr>
+              <tr><td>RK4 · c=2.5</td><td>~0.00002</td><td class="periodic-label">Limit cycle</td></tr>
+              <tr><td>CI eşiği</td><td>&gt; 0.04</td><td class="threshold-label">Test geçmeli</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="measurement-footnote">Not: `~` işareti, değerlerin çalışma ortamı ve iterasyon sayısına göre küçük farklılıklar gösterebileceğini belirtir. Uygulama kendi örneğini `verify_chaos()` ile yeniden ölçebilir.</p>
     </section>
 
     <section class="section container final-cta">
