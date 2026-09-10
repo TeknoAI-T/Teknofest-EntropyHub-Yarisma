@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EntropyHub: Rust çekirdekli, doğrulanabilir kaotik sözde-rastgele sayı üreticisi dokümantasyonu.">
+  <title>EntropyHub | Dokümantasyon</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="EntropyHub ana sayfa">
+      <span class="brand-mark">E</span>
+      <span>EntropyHub<small>chaos you can verify</small></span>
+    </a>
+    <button class="menu-toggle" aria-label="Menüyü aç" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="#baslangic">Başlangıç</a>
+      <a href="#mimari">Mimari</a>
+      <a href="#api">API</a>
+      <a href="#dogrulama">Doğrulama</a>
+      <a class="github-link" href="https://github.com/TeknoAI-T/Teknofest-EntropyHub-Yarisma" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero container">
+      <div class="hero-copy">
+        <p class="eyebrow">RUST CORE · PYTHON API · RK4 RÖSSLER</p>
+        <h1>Kaosu sadece kullanma.<br><em>Ölç ve doğrula.</em></h1>
+        <p class="lead">EntropyHub, Rössler dinamik sistemini 4. dereceden Runge–Kutta ile entegre eden, işletim sistemi entropisiyle tohumlanan ve çalışma anında Lyapunov üssünü ölçebilen bir PRNG çekirdeğidir.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#baslangic">Hızlı başlangıç <span>→</span></a>
+          <a class="button secondary" href="https://github.com/TeknoAI-T/Teknofest-EntropyHub-Yarisma" target="_blank" rel="noreferrer">Kaynak kodu gör</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="card-label"><span class="pulse"></span> LIVE VERIFICATION</div>
+        <div class="metric"><strong>λ ≈ 0.071</strong><span>largest Lyapunov exponent</span></div>
+        <div class="signal"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="metric-foot"><span>Rössler / c = 5.7</span><span class="green">● chaotic</span></div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container stats-grid">
+        <div><strong>0.1.0</strong><span>sürüm</span></div>
+        <div><strong>RK4</strong><span>entegrasyon</span></div>
+        <div><strong>SHA-256</strong><span>çıktı karıştırma</span></div>
+        <div><strong>MIT / Apache-2.0</strong><span>lisans</span></div>
+      </div>
+    </section>
+
+    <section id="baslangic" class="section container">
+      <div class="section-heading"><span>01</span><div><p class="eyebrow">BAŞLANGIÇ</p><h2>İlk çıktınızı dakikalar içinde alın.</h2></div></div>
+      <div class="two-column">
+        <div>
+          <p>EntropyHub, Rust workspace içindeki saf çekirdeği ve PyO3 üzerinden sunulan Python paketini birlikte barındırır. Python kullanımı için Rust toolchain, Python 3.8+ ve Maturin gerekir.</p>
+          <div class="code-block">
+            <div class="code-head"><span>Terminal</span><button class="copy" data-copy="install-code">Kopyala</button></div>
+            <pre id="install-code"><code>git clone https://github.com/TeknoAI-T/Teknofest-EntropyHub-Yarisma.git
+cd Teknofest-EntropyHub-Yarisma
+
+pip install maturin
+cd crates/entropyhub-py
+maturin develop --release
+cd ../..
+python examples/demo.py</code></pre>
+          </div>
+        </div>
+        <aside class="note">
+          <span class="note-icon">✓</span>
+          <div><strong>Üretim notu</strong><p>Güvenlik-kritik kullanım için <code>secrets</code>, <code>os.urandom</code> veya denetlenmiş bir CSPRNG tercih edin. EntropyHub kriptografik olarak bağımsız denetlenmemiştir.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="mimari" class="section section-dark">
+      <div class="container">
+        <div class="section-heading light"><span>02</span><div><p class="eyebrow">MİMARİ</p><h2>İki dil, tek deterministik çekirdek.</h2></div></div>
+        <div class="architecture">
+          <div class="arch-card"><span class="arch-number">01</span><h3>OS entropy</h3><p>24 byte işletim sistemi entropisi okunur; değerler Rössler çekicisinin doğal havzasına taşınır.</p><code>getrandom → (x, y, z)</code></div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-card featured"><span class="arch-number">02</span><h3>entropyhub-core</h3><p>RK4 ile durum ilerletilir, SHA-256 ile beyazlatılır ve deterministik byte çıktısı üretilir.</p><code>RosslerCore::step()</code></div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-card"><span class="arch-number">03</span><h3>Python / Rust API</h3><p>PyO3 bağlayıcısı veya doğrudan Rust crate'i üzerinden aynı davranışa erişilir.</p><code>EntropyHub.random_bytes()</code></div>
+        </div>
+        <div class="layout-code">
+          <div><p class="eyebrow">PROJE YAPISI</p><h3>Kod nerede?</h3><p>Çekirdek mantık Python bağımlılığı olmayan Rust crate'inde tutulur. Bu sayede performans ve test edilebilirlik korunurken Python ergonomisi ayrı bir katmanda sağlanır.</p></div>
+          <pre><code>crates/
+├── entropyhub-core/       # Rössler + RK4 + Lyapunov
+└── entropyhub-py/         # PyO3 ve Python API
+    └── python/entropyhub/
+examples/demo.py           # uçtan uca örnek</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="api" class="section container">
+      <div class="section-heading"><span>03</span><div><p class="eyebrow">PYTHON API</p><h2>Günlük kullanım için sade arayüz.</h2></div></div>
+      <div class="api-grid">
+        <article class="api-card"><div class="api-signature">EntropyHub(dt=0.01)</div><p>OS entropisiyle yeni bir örnek oluşturur. <code>dt</code>, RK4 zaman adımıdır.</p><span class="tag">constructor</span></article>
+        <article class="api-card"><div class="api-signature">random_bytes(n, iterations=1)</div><p><code>n</code> adet byte döndürür. Daha yüksek iteration, örnekler arasında daha fazla faz uzayı mesafesi sağlar.</p><span class="tag">bytes</span></article>
+        <article class="api-card"><div class="api-signature">random_int(lo, hi)</div><p>Rejection sampling kullanarak kapalı aralıkta (<code>lo ≤ x ≤ hi</code>) uniform tamsayı üretir.</p><span class="tag">integer</span></article>
+        <article class="api-card"><div class="api-signature">random_float()</div><p><code>[0, 1)</code> aralığında 64 bitlik ham çıktıyı ölçekleyerek uniform kayan nokta üretir.</p><span class="tag">float</span></article>
+        <article class="api-card"><div class="api-signature">verify_chaos(...)</div><p>Canlı örneği bozmadan Benettin yöntemiyle en büyük Lyapunov üssünü tahmin eder.</p><span class="tag">diagnostic</span></article>
+        <article class="api-card"><div class="api-signature">reseed() · state</div><p>Yeni OS entropisiyle tohumlar veya mevcut <code>(x, y, z)</code> konumunu okur.</p><span class="tag">state</span></article>
+      </div>
+      <div class="code-block large-code">
+        <div class="code-head"><span>Python</span><button class="copy" data-copy="python-code">Kopyala</button></div>
+        <pre id="python-code"><code>from entropyhub import EntropyHub
+
+hub = EntropyHub()
+
+print(hub.random_bytes(16))
+print(hub.random_int(1, 6))       # zar atışı
+print(hub.random_float())         # [0, 1)
+print(hub.state)                  # (x, y, z)
+
+lambda_max = hub.verify_chaos()
+print(f"Lyapunov exponent: {lambda_max:.5f}")
+
+hub.reseed()                      # yeni OS entropisi</code></pre>
+      </div>
+    </section>
+
+    <section id="dogrulama" class="section verification">
+      <div class="container verify-grid">
+        <div>
+          <p class="eyebrow">04 · BİLİMSEL DOĞRULAMA</p>
+          <h2>Parametreye değil, ölçüme güven.</h2>
+          <p>Rössler sisteminin teorik olarak kaotik parametrelerini kullanmak tek başına yeterli değildir. Yanlış integratör kaosu sayısal olarak bastırabilir. Bu nedenle her CI çalıştırmasında Lyapunov ölçümü yapılır.</p>
+          <div class="comparison"><div><span>Euler · dt 0.01</span><strong>λ ≈ 0.000006</strong><small>kaos gözlenmiyor</small></div><div class="winner"><span>RK4 · dt 0.01</span><strong>λ ≈ 0.071</strong><small>literatür: 0.0714</small></div></div>
+        </div>
+        <div class="verify-terminal"><div class="terminal-top"><span></span><span></span><span></span><b>cargo test</b></div><pre><code><i>$</i> cargo test -p entropyhub-core --release
+
+running 1 test
+test chaos_verification ... <em>ok</em>
+
+test result: <strong>ok</strong>. 1 passed
+<mark>λ = 0.071…  ✓ chaotic</mark></code></pre></div>
+      </div>
+    </section>
+
+    <section class="section container final-cta">
+      <p class="eyebrow">AÇIK KAYNAK · DOĞRULANABİLİR · EĞİTİCİ</p>
+      <h2>Kaosu birlikte daha iyi anlayalım.</h2>
+      <p>Katkıda bulunmak, bir issue açmak veya çekirdeği incelemek için GitHub deposunu ziyaret edin.</p>
+      <a class="button primary" href="https://github.com/TeknoAI-T/Teknofest-EntropyHub-Yarisma" target="_blank" rel="noreferrer">GitHub deposuna git →</a>
+    </section>
+  </main>
+  <footer class="footer"><div class="container"><span>© 2024 EntropyHub contributors</span><span>MIT OR Apache-2.0</span><a href="https://github.com/TeknoAI-T/Teknofest-EntropyHub-Yarisma" target="_blank" rel="noreferrer">GitHub ↗</a></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>
