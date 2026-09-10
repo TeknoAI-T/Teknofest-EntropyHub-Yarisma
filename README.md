@@ -4,6 +4,8 @@ A chaotic pseudo-random generator built on an RK4-integrated Rössler system,
 seeded from OS entropy, that can prove its own chaos at runtime instead of
 just asserting it.
 
+> **Web dokümantasyonu:** [EntropyHub Documentation](https://teknoai-t.github.io/Teknofest-EntropyHub-Yarisma/)
+
 ```python
 from entropyhub import EntropyHub
 
