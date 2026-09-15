@@ -46,6 +46,25 @@ const translations = {
     notChaotic: "kaos gözlenmiyor",
     literature: "literatür: 0.0714",
     measurements: "GERÇEK ÖLÇÜMLER",
+    services: "Hizmetler",
+    impactAria: "Kurumsal etki göstergeleri",
+    servicesLabel: "TEKNOLOJİ ORTAĞINIZ",
+    servicesTitle: "Fikirleri güvenilir dijital ürünlere dönüştürüyoruz.",
+    leadership: "KURUMSAL LİDERLİK",
+    ceoRole: "CEO · Kurucu",
+    ceoCopy: "Yazılım teknolojileri, araştırma ve proje danışmanlığını tek bir üretim kültüründe buluşturuyor.",
+    blockchain: "Blok zincir teknolojileri",
+    blockchainCopy: "Güvenli, izlenebilir ve ölçeklenebilir Web3 ürünleri için mimari ve prototipleme.",
+    aiData: "Yapay zeka ve veri",
+    aiDataCopy: "Karar destek sistemleri, akıllı otomasyon ve ölçülebilir veri ürünleri.",
+    innovation: "Ar-Ge ve inovasyon",
+    innovationCopy: "Deneysel fikirleri doğrulanabilir teknik çıktılara ve sürdürülebilir ürünlere taşıma.",
+    transformation: "Kurumsal dijital dönüşüm",
+    transformationCopy: "İş akışlarını sadeleştiren, güvenli ve kullanıcı odaklı dijital deneyimler.",
+    team: "ekip üyesi",
+    projects: "desteklenen proje",
+    domains: "uzmanlık alanı",
+    impactNote: "Sunum metrikleri · düzenli olarak güncellenir",
     measurementsTitle: "Grafik, kaynak koddaki test sonuçlarını gösterir.",
     measurementsCopy: "Bu sayfadaki değerler görsel amaçlı uydurulmuş skorlar değildir. RK4 ve periyodik parametre sonuçları, entropyhub-core içindeki Benettin yöntemiyle çalışan Rust testleri ve proje README'sinde açıklanan ölçümlerden alınmıştır.",
     sourceBadge: "● KAYNAK: cargo test -p entropyhub-core --release",
@@ -109,6 +128,25 @@ const translations = {
     notChaotic: "chaos not observed",
     literature: "literature: 0.0714",
     measurements: "REAL MEASUREMENTS",
+    services: "Services",
+    impactAria: "Corporate impact indicators",
+    servicesLabel: "YOUR TECHNOLOGY PARTNER",
+    servicesTitle: "Turning ideas into dependable digital products.",
+    leadership: "CORPORATE LEADERSHIP",
+    ceoRole: "CEO · Founder",
+    ceoCopy: "Bringing software technologies, research, and project consulting together in one culture of making.",
+    blockchain: "Blockchain technologies",
+    blockchainCopy: "Architecture and prototyping for secure, traceable, and scalable Web3 products.",
+    aiData: "Artificial intelligence and data",
+    aiDataCopy: "Decision support systems, intelligent automation, and measurable data products.",
+    innovation: "R&D and innovation",
+    innovationCopy: "Turning experimental ideas into verifiable technical outcomes and sustainable products.",
+    transformation: "Enterprise digital transformation",
+    transformationCopy: "Secure, user-focused digital experiences that simplify business workflows.",
+    team: "team members",
+    projects: "supported projects",
+    domains: "areas of expertise",
+    impactNote: "Presentation metrics · updated regularly",
     measurementsTitle: "The chart shows results from the source-code tests.",
     measurementsCopy: "The values on this page are not invented scores for decoration. RK4 and periodic-parameter results come from the Rust tests using the Benettin method in entropyhub-core and measurements documented in the project README.",
     sourceBadge: "● SOURCE: cargo test -p entropyhub-core --release",
@@ -148,7 +186,13 @@ const targets = {
   ".chart-caption": "chartCaption", "caption": "tableCaption", "th:nth-child(1)": "experiment",
   "th:nth-child(2)": "result", "th:nth-child(3)": "interpretation", ".periodic-label": "chaosSuppressed",
   ".measurement-grid tr:nth-child(3) .periodic-label": "limitCycle", ".threshold-label": "mustPass",
-  ".measurement-footnote": "measureNote", ".final-cta .eyebrow": "finalLabel",
+  "#hizmetler .eyebrow": "servicesLabel", "#hizmetler h2": "servicesTitle", ".ceo-card .eyebrow": "leadership",
+  ".ceo-role": "ceoRole", ".ceo-copy": "ceoCopy", ".service-card:nth-child(1) h3": "blockchain",
+  ".service-card:nth-child(1) p": "blockchainCopy", ".service-card:nth-child(2) h3": "aiData",
+  ".service-card:nth-child(2) p": "aiDataCopy", ".service-card:nth-child(3) h3": "innovation",
+  ".service-card:nth-child(3) p": "innovationCopy", ".service-card:nth-child(4) h3": "transformation",
+  ".service-card:nth-child(4) p": "transformationCopy", ".impact-team": "team", ".impact-projects": "projects",
+  ".impact-domains": "domains", ".impact-note": "impactNote", ".measurement-footnote": "measureNote", ".final-cta .eyebrow": "finalLabel",
   ".final-cta h2": "finalTitle", ".final-cta > p:not(.eyebrow)": "finalCopy", ".final-cta .button": "finalButton",
   ".company-name": "company"
 };
@@ -156,7 +200,7 @@ const targets = {
 function setLanguage(language) {
   const dictionary = translations[language] || translations.tr;
   document.querySelectorAll(".nav a[href]").forEach((link) => {
-    const key = { "#baslangic": "startLabel", "#mimari": "architecture", "#dogrulama": "verifyLabel", "#olcumler": "measurements" }[link.getAttribute("href")];
+    const key = { "#baslangic": "startLabel", "#mimari": "architecture", "#dogrulama": "verifyLabel", "#olcumler": "measurements", "#hizmetler": "services" }[link.getAttribute("href")];
     if (key) link.textContent = dictionary[key].replace(/^04 · /, "");
   });
   const title = document.querySelector(".hero h1");
@@ -176,6 +220,7 @@ function setLanguage(language) {
   document.querySelector(".brand")?.setAttribute("aria-label", dictionary.brandAria);
   document.querySelector(".nav")?.setAttribute("aria-label", dictionary.navAria);
   document.querySelector(".bar-chart")?.setAttribute("aria-label", dictionary.chartAria);
+  document.querySelector(".impact-strip")?.setAttribute("aria-label", dictionary.impactAria);
   menuToggle?.setAttribute("aria-label", dictionary.menuOpen);
   localStorage.setItem("entropyhub-language", language);
 }
